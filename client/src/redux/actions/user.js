@@ -24,6 +24,27 @@ export const login = (email, password) => async dispatch => {
   }
 };
 
+export const ssoLogin = (token) => async dispatch => {
+  try{
+    dispatch({type:'loginSsoRequest'});
+    const {data} = await axios.post(
+      `${server}/sso/verified`,
+      {token},
+      {
+        headers:{
+          'Content-Type':'application/json',
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({type:'loginSsoSuccess',payload:data});
+
+  }catch(error){
+     dispatch({type:'loginSsoFail',payload:error.response.data.message});
+  }
+
+};
 export const register = formdata => async dispatch => {
   try {
     dispatch({ type: 'registerRequest' });

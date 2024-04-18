@@ -54,15 +54,15 @@ export const updateProfilePicture = formdata => async dispatch => {
   }
 };
 
-export const changePassword = (oldPassword, newPassword) => async dispatch => {
+export const changePassword = (newPassword, confirmPassword) => async dispatch => {
   try {
     dispatch({ type: 'changePasswordRequest' });
 
     const { data } = await axios.put(
       `${server}/changepassword`,
       {
-        oldPassword,
         newPassword,
+        confirmPassword,
       },
       {
         headers: {

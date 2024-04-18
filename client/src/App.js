@@ -28,6 +28,7 @@ import toast,{Toaster} from "react-hot-toast";
 import { loadUser } from './redux/actions/user';
 import {ProtectedRoute} from "protected-route-react";
 import Loader from './components/layout/loader/Loader';
+import LoginSso from './components/auth/LoginSso';
 
 
 function App() {
@@ -112,6 +113,15 @@ function App() {
             </ProtectedRoute>
             } 
           />
+
+          <Route path='/sso-login' element={
+            <ProtectedRoute
+              isAuthenticated={!isAuthenticated}
+              redirect="/profile"
+            >
+             <LoginSso/>
+            </ProtectedRoute>
+          }/>
 
            <Route
               path="/register"

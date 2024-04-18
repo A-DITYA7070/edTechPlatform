@@ -42,7 +42,7 @@
     } = useSelector(state => state.subscription);
   
     const removeFromPlaylistHandler = async id => {
-      await dispatch(removeFromPlaylist(id));
+      dispatch(removeFromPlaylist(id));
       dispatch(loadUser());
     };
   
@@ -50,7 +50,7 @@
       e.preventDefault();
       const myForm = new FormData();
       myForm.append('file', image);
-      await dispatch(updateProfilePicture(myForm));
+      dispatch(updateProfilePicture(myForm));
       dispatch(loadUser());
     };
   

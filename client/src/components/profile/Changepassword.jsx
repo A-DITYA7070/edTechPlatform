@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changePassword } from '../../redux/actions/profile';
 
 const ChangePassword = () => {
-  const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const dispatch = useDispatch();
   const submitHandler = e => {
     e.preventDefault();
-    dispatch(changePassword(oldPassword, newPassword));
+    dispatch(changePassword(newPassword, confirmPassword));
   };
 
   const { loading, message, error } = useSelector(state => state.profile);
@@ -42,8 +42,8 @@ const ChangePassword = () => {
         <VStack spacing={'8'}>
           <Input
             required
-            value={oldPassword}
-            onChange={e => setOldPassword(e.target.value)}
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
             placeholder="Old Password"
             type={'password'}
             focusBorderColor="yellow.500"
@@ -51,8 +51,8 @@ const ChangePassword = () => {
 
           <Input
             required
-            value={newPassword}
-            onChange={e => setNewPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
             placeholder="New Password"
             type={'password'}
             focusBorderColor="yellow.500"

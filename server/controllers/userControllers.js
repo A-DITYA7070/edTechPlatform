@@ -32,6 +32,7 @@ import { Stats } from "../models/Stats.js";
             public_id:mycloud.public_id,
             url:mycloud.secure_url,
         }
+
     });
     sendToken(res,user,"Registered succesfully ",201);
    
@@ -58,9 +59,9 @@ import { Stats } from "../models/Stats.js";
  export const logout = catchAsyncError(async(req,res,next)=>{
     res.status(200).cookie("token",null,{
         expires:new Date(Date.now()),
-        httpOnly:true,
+        httpOnly:false,
         secure:true,
-        sameSite:"none",
+        sameSite:"lax",
     }).json({
         success:true,
         message:"logged out successfully"
@@ -78,16 +79,16 @@ import { Stats } from "../models/Stats.js";
 //  change password...
 
  export const changePassword = catchAsyncError(async(req,res,next)=>{
-    const {oldPassword,newPassword} = req.body;
+    const {newPassword,confirmPassword} = req.body;
 
-    if(!oldPassword || !newPassword){
-        return next(new ErrorHandler("please enter all fields.",400));
+    if(!newPassword || !confirmPassword){
+        return next(new ErrorHandler("Invalid credentials ",400));
     }
-    const user=await User.findById(req.user._id).select("+password");
-    const isMatch = await user.comparePassword(oldPassword);
+    if(newPassword !== confirmPassword){
+        return next(new ErrorHandler("Password mismatch ",400));
+    }
 
-    if(!isMatch) return next(new ErrorHandler("Incorrect old password ",400));
-    
+    const user = await User.findById(req.user._id).select("+password");
     user.password=newPassword;
 
     await user.save();
@@ -194,6 +195,7 @@ export const updateProfilePicture = catchAsyncError(async(req,res,next)=>{
 //  AddTOPlaylist..
 
 export const addToPlayList = catchAsyncError(async(req,res,next)=>{
+    const id = 
 
     res.status(200).json({
         success:true,
@@ -284,4 +286,5 @@ User.watch().on("change",async()=>{
     stats[0].createdAt=new Date(Date.now());
     await stats[0].save();
 
-})
+});
+

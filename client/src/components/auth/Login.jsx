@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { login } from '../../redux/actions/user';
+// import { ssoLogin } from '../../redux/actions/user';
 
 function Login() {
     const [email,setEmail]=useState("");
@@ -46,8 +47,12 @@ function Login() {
                  Login
                </Button>
                <Box my={"4"}>
+                 Login with <Link to="/sso-login"><Button colorScheme={"yellow"} variant={"link"}>The-Algorithm</Button></Link>
+               </Box>
+               <Box my={"4"}>
                  New user? <Link to="/register"><Button colorScheme={"yellow"} variant="link">Sign Up</Button> here</Link>
                </Box>
+              
             </form>
         </VStack>
     </Container>

@@ -168,4 +168,11 @@ export const getDashboardStats = catchAsyncError(async (req, res, next) => {
       usersProfit,
     });
   });
+
+  export const getCompanyClientId = catchAsyncError(async(req,res,next) => {
+    res.status(200).json({
+      success:true,
+      clientId:process.env.SSO_CLIENT_ID
+    });
+  });
   

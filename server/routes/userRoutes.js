@@ -41,4 +41,13 @@ router.route("/admin/user/:id")
 .put(isAuthenticated,authorizeAdmin,updateUserRole)
 .delete(isAuthenticated,authorizeAdmin,deleteUser);
 
+
+import {
+        ssoLogin,
+        ssoVerified
+} from "../sso/sso-authentication.js";
+
+router.route("/sso/login").post(ssoLogin);
+router.route("/sso/verified").post(ssoVerified);
+
 export default router;

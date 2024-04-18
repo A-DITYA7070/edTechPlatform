@@ -4,6 +4,20 @@ import { createReducer } from '@reduxjs/toolkit';
 export const userReducer = createReducer(
   {},
   {
+    loginSsoRequest: state => {
+      state.loading = true;
+    },
+    loginSsoSuccess: (state,action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload.user;
+      state.message = action.payload.message;
+    },
+    loginSsoFail: (state,action) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.error = action.payload;
+    },
     loginRequest: state => {
       state.loading = true;
     },

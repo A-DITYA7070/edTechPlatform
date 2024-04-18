@@ -14,16 +14,16 @@ config({
 })
 const app=express();
 
-// const cors = require('cors');
+
 const corsOptions ={
     origin:'http://localhost:3000', 
-    credentials:true,            //access-control-allow-credentials:true
+    credentials:true,            
+    methods:['GET','POST','PATCH','PUT','DELETE'],
     optionSuccessStatus:200
 }
+
 app.use(cors(corsOptions));
-// app.use(cors());
 app.use(cookieParser());
-app.use(express.json());
 app.use(express.json());
 app.use(
     express.urlencoded({
